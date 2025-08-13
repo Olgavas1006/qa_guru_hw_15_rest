@@ -31,6 +31,7 @@ public class RegressInTests extends TestBase {
     @DisplayName("Получение данных пользователя")
     public void getSingleUserTest() {
         given()
+                .header("x-api-key", API_KEY)
                 .log().uri()
                 .when()
                 .get("/users/2")
