@@ -2,6 +2,7 @@ package tests;
 
 import models.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static helpers.CustomAllureListener.withCustomTemplates;
@@ -14,6 +15,7 @@ public class WithModelsTests {
 
 
     @Test
+    @Tag("api")
     @DisplayName("Получение списка пользователей")
     public void getUsersListTest() {
         UsersListResponse response = step("Отправить запрос на получение списка пользователей", () ->
@@ -38,6 +40,7 @@ public class WithModelsTests {
 
 
     @Test
+    @Tag("api")
     @DisplayName("Получение данных пользователя")
     public void getSingleUserTest() {
         UserDataResponseModel response = step("Отправить запрос на получение данных", () ->
@@ -64,6 +67,7 @@ public class WithModelsTests {
 
 
     @Test
+    @Tag("api")
     @DisplayName("Создание пользователя")
     public void createUserTest() {
         LoginUserLombok data = new LoginUserLombok();
@@ -89,6 +93,7 @@ public class WithModelsTests {
     }
 
     @Test
+    @Tag("api")
     @DisplayName("Обновление данных пользователя")
     public void updateUserTest() {
         LoginUserLombok data = new LoginUserLombok();
@@ -115,6 +120,7 @@ public class WithModelsTests {
     }
 
     @Test
+    @Tag("api")
     @DisplayName("Удаления  пользователя")
     void deleteUser() {
 
