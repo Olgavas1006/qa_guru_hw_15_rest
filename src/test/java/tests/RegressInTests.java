@@ -1,3 +1,4 @@
+package tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ public class RegressInTests extends TestBase {
     @DisplayName("Получение данных пользователя")
     public void getSingleUserTest() {
         given()
-                .header("x-api-key", API_KEY)
+                .header("x-api-key", TestBase.API_KEY)
                 .log().uri()
                 .when()
                 .get("/users/2")
@@ -51,7 +52,7 @@ public class RegressInTests extends TestBase {
     public void createUserTest() {
         String data = "{ \"name\": \"morpheus\", \"job\": \"leader\" }";
         given()
-                .header("x-api-key", API_KEY)
+                .header("x-api-key", TestBase.API_KEY)
                 .log().uri()
                 .contentType(JSON)
                 .body(data)
@@ -71,7 +72,7 @@ public class RegressInTests extends TestBase {
     public void updateUserTest() {
         String data = "{ \"name\": \"morpheus\", \"job\": \"zion resident\" }";
         given()
-                .header("x-api-key", API_KEY)
+                .header("x-api-key", TestBase.API_KEY)
                 .log().uri()
                 .contentType(JSON)
                 .body(data)
@@ -89,7 +90,7 @@ public class RegressInTests extends TestBase {
     @DisplayName("Удаление пользователя")
     public void deleteUserTest() {
         given()
-                .header("x-api-key", API_KEY)
+                .header("x-api-key", TestBase.API_KEY)
                 .log().uri()
                 .when()
                 .delete("/users/2")
