@@ -12,7 +12,6 @@ public class UserDataModel {
     String lastName;
     String avatar;
 
-    // Геттеры
     public int getId() {
         return id;
     }
