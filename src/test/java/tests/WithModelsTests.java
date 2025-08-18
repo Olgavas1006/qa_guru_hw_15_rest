@@ -5,13 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static helpers.CustomAllureListener.withCustomTemplates;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static specs.Specs.*;
+import static specs.RequestSpec.*;
+import static specs.ResponseSpec.responseSpec;
 
-public class WithModelsTests {
+public class WithModelsTests extends TestBase{
 
 
     @Test
@@ -20,13 +20,12 @@ public class WithModelsTests {
     public void getUsersListTest() {
         UsersListResponse response = step("Отправить запрос на получение списка пользователей", () ->
         given()
-                .filter(withCustomTemplates())
                 .spec(request)
                 .when()
                 .queryParam("page", "2")
                 .get("/users")
                 .then()
-                .spec(responseSuccessful)
+                .spec(responseSpec(200))
                 .extract().as(UsersListResponse.class));
 
         step("Проверить параметры", () -> {
@@ -38,19 +37,17 @@ public class WithModelsTests {
 
     }
 
-
     @Test
     @Tag("api")
     @DisplayName("Получение данных пользователя")
     public void getSingleUserTest() {
         UserDataResponseModel response = step("Отправить запрос на получение данных", () ->
                 given()
-                        .filter(withCustomTemplates())
                         .spec(request)
                         .when()
                         .get("/users/2")
                         .then()
-                        .spec(responseSuccessful)
+                        .spec(responseSpec(200))
                         .extract().as(UserDataResponseModel.class));
 
         UserDataModel data = response.getData();
@@ -65,7 +62,6 @@ public class WithModelsTests {
                 assertThat(data.getLastName()).isEqualTo("Weaver"));
     }
 
-
     @Test
     @Tag("api")
     @DisplayName("Создание пользователя")
@@ -76,13 +72,12 @@ public class WithModelsTests {
 
         UserBodyResponseLombok user = step("Отправить запрос на создание пользователя", () ->
                 given()
-                        .filter(withCustomTemplates())
                         .spec(request)
                         .body(data)
                         .when()
                         .post("/users")
                         .then()
-                        .spec(responseCreated)
+                        .spec(responseSpec(201))
                         .extract().as(UserBodyResponseLombok.class));
 
         step("Проверить имя пользователя", () ->
@@ -102,13 +97,12 @@ public class WithModelsTests {
 
         UserBodyResponseLombok user = step("Отправить запрос на обновление данных пользователя", () ->
                 given()
-                        .filter(withCustomTemplates())
                         .spec(request)
                         .body(data)
                         .when()
                         .put("/users/2")
                         .then()
-                        .spec(responseSuccessful)
+                        .spec(responseSpec(200))
                         .extract().as(UserBodyResponseLombok.class));
 
         step("Проверить имя пользователя", () ->
@@ -126,13 +120,12 @@ public class WithModelsTests {
 
         step("Отправить запрос на удаление", () ->
                 given()
-                        .filter(withCustomTemplates())
                         .spec(request)
                         .log().uri()
                         .when()
                         .delete("/users/2")
                         .then()
-                        .spec(responseDelete));
+                        .spec(responseSpec(204)));
     }
 }
 
